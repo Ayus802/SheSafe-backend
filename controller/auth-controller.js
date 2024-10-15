@@ -57,20 +57,20 @@ const logIn = async (req, res)=>{
         const {success} = loginZod.safeParse(body);
 
     if(!success){
-        res.send('Invalid Input')
+        return res.send('Invalid Input')
     }
 
     const user = await UserModel.findOne({
-        email: body.email
+         email: body.email
     })
     if(!user){
-        res.send("User Don't Exist")
+        return res.send("User Don't Exist")
     }
 
     if (user.password!=body.password){
-        res.send('password incorrect')
+        return res.send('password incorrect')
     }
-    res.send(`Login Successful ${user.name}`)
+    return res.send(`Login Successful ${user.name}`)
 
     }catch(err){
         console.error(err)
